@@ -76,8 +76,15 @@ button:hover {
   margin: 0 auto;
 }
 
+.textContainer {
+  width: fit-content;
+  height: fit-content;
+  overflow: hidden;
+}
+
 .slideText {
   color: white;
+  transition: transform 1s linear
 }
 
 .slideText p {
@@ -105,6 +112,7 @@ button:hover {
   margin-bottom: 5%;
   display: flex;
   justify-content: space-between;
+  overflow: hidden;
 }
 
 .hidden {
@@ -125,6 +133,19 @@ button:hover {
 
 .slidePicture.next {
   transform: translateX(120%);
+}
+
+.slideText.cur {
+  transform: translateX(0%);
+}
+
+.slideText.prev {
+  transform: translateX(-120%);
+}
+
+.slideText.next {
+  transform: translateX(1520%);
+  ;
 }
 
 @media (max-width: 425px) {
@@ -148,10 +169,10 @@ button:hover {
     background-color: #222729;
     display: flex;
     flex-direction: column;
-}
+  }
 
-.slideText {
-  color: white;
-  margin-top: 5%;
-}
+  .slideText {
+    color: white;
+    margin-top: 5%;
+  }
 }
