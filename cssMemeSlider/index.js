@@ -101,8 +101,12 @@ function firstButtonHandler() {
 secondButton.addEventListener('click', secondButtonHandler);
 
 function secondButtonHandler() {
-  firstButton.classList.remove('active');
+  thirdButton.classList.remove('active');
   secondButton.classList.add('active');
+  firstButton.classList.remove('active');
+  fifthButton.classList.remove('active');
+  fourthButton.classList.remove('active');
+
 
   currentSlideText.classList.add('prev');
   currentSlideImg.classList.add('prev');
@@ -117,8 +121,12 @@ function secondButtonHandler() {
 thirdButton.addEventListener('click', thirdButtonHandler);
 
 function thirdButtonHandler() {
-  secondButton.classList.remove('active');
   thirdButton.classList.add('active');
+  secondButton.classList.remove('active');
+  firstButton.classList.remove('active');
+  fifthButton.classList.remove('active');
+  fourthButton.classList.remove('active');
+
 
   currentSlideText.classList.add('prev');
   currentSlideImg.classList.add('prev');
@@ -136,6 +144,7 @@ function fourthButtonHandler() {
   thirdButton.classList.remove('active');
   secondButton.classList.remove('active');
   firstButton.classList.remove('active');
+  fifthButton.classList.remove('active');
   fourthButton.classList.add('active');
 
   currentSlideText.classList.add('prev');
