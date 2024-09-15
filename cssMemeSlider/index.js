@@ -68,7 +68,7 @@ function makeSlideButton(memeNum) {
   button.className = 'button';
 
   button.addEventListener('click', () => {
-    setSlideCard(memes[memeNum]);
+    setSlideCard(memeNum);
     button.classList.add('active');
   });
 
@@ -76,7 +76,11 @@ function makeSlideButton(memeNum) {
 }
 
 // TODO accept meme index instead of meme object so that we know which direction to slide
-function setSlideCard(meme) {
+function setSlideCard(memeNum) {
+
+  let meme = memes[memeNum];
+  // currentMeme = memeNum;
+
   let slideContainer = document.querySelector('.slide-container');
   let textContainer = document.querySelector('.textContainer');
 
@@ -85,15 +89,27 @@ function setSlideCard(meme) {
 
   // TODO replace with animation with a bunch of sliders
 
-  img.animate(
-    {
-      transform: ["translateX(100%)", "translateX(0%)"],
-    }, 1000);
+  if (currentMeme < memeNum) {
+    img.animate(
+      {
+        transform: ["translateX(100%)", "translateX(0%)"],
+      }, 1000);
 
     text.animate(
       {
         transform: ["translateX(100%)", "translateX(0%)"],
       }, 1000);
+  } else {
+    img.animate(
+      {
+        transform: ["translateX(-100%)", "translateX(0%)"],
+      }, 1000);
+
+    text.animate(
+      {
+        transform: ["translateX(-100%)", "translateX(0%)"],
+      }, 1000);
+  }
 
   slideContainer.replaceChildren(img);
   textContainer.replaceChildren(text);
@@ -101,6 +117,8 @@ function setSlideCard(meme) {
   let notActive = document.querySelectorAll('button.active').forEach((element) => {
     element.classList.remove('active');
   });
+
+  currentMeme = memeNum;
 
   return;
 }
@@ -122,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let slidePicture = document.createElement('div');
   slidePicture.className = "slidePicture";
 
+  currentMeme = 0;
 
   let actionButtons = [];
   for (let i = 0; i < 5; i++) {
@@ -129,6 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   document.querySelector('.actionButtons').append(...actionButtons);
 
-  setSlideCard(memes[0]);
+  setSlideCard(0);
   actionButtons[0].classList.add('active');
 });
