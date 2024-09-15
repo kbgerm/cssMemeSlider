@@ -75,11 +75,11 @@ function makeSlideButton(memeNum) {
   return button;
 }
 
-// TODO accept meme index instead of meme object so that we know which direction to slide
+const RIGHT = '+';
+const LEFT = '-';
 function setSlideCard(memeNum) {
 
   let meme = memes[memeNum];
-  // currentMeme = memeNum;
 
   let slideContainer = document.querySelector('.slide-container');
   let textContainer = document.querySelector('.textContainer');
@@ -87,32 +87,37 @@ function setSlideCard(memeNum) {
   const img = makeSlideImg(meme);
   const text = makeSlideText(meme);
 
-  // TODO replace with animation with a bunch of sliders
+  let fromDirection = memeNum < currentMeme ? LEFT : RIGHT;
+  const animation = [`translateX(${fromDirection}100%)`, 'translateX(0%)'];
+  [img, text].forEach(el => {
+    el.animate(
+      {
+        transform: animation,
+      }, 1000);
+  });
 
-  if (currentMeme < memeNum) {
-    img.animate(
-      {
-        transform: ["translateX(100%)", "translateX(0%)"],
-      }, 1000);
+  // Найти старый элемент
+  // Заанимировать его нахуй со страницы
+  // Удалить в конце
 
-    text.animate(
-      {
-        transform: ["translateX(100%)", "translateX(0%)"],
-      }, 1000);
-  } else {
-    img.animate(
-      {
-        transform: ["translateX(-100%)", "translateX(0%)"],
-      }, 1000);
+  let prevImg = slideContainer.querySelector('img');
+  let prevText = textContainer.querySelector('.slideText p');
 
-    text.animate(
-      {
-        transform: ["translateX(-100%)", "translateX(0%)"],
-      }, 1000);
+  if (prevImg && prevText) {
+    let toDirection = memeNum < currentMeme ? RIGHT : LEFT;
+    const animations = [prevImg, prevText].map(el => el.animate({
+      transform: ['translateX(0%)', `translateX(${toDirection}100%)`],
+    }, 1000));
+
+
+    animations.map(el => el.addEventListener("finish", (event) => {
+      prevText.remove();
+      prevImg.remove();
+    }));
   }
 
-  slideContainer.replaceChildren(img);
-  textContainer.replaceChildren(text);
+  slideContainer.append(img);
+  textContainer.append(text);
 
   let notActive = document.querySelectorAll('button.active').forEach((element) => {
     element.classList.remove('active');
@@ -122,14 +127,6 @@ function setSlideCard(memeNum) {
 
   return;
 }
-
-let secondSlideImg;
-let secondSlideText;
-let prevSlideImg;
-let prevSlideText;
-
-let nextSlideImg;
-let nextSlideText;
 
 document.addEventListener('DOMContentLoaded', () => {
   // План
