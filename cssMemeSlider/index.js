@@ -26,24 +26,16 @@ const memes = [
   }
 ];
 
-let firstButton = document.querySelector('.first');
-let secondButton = document.querySelector('.second');
-let thirdButton = document.querySelector('.third');
-let fourthButton = document.querySelector('.fourth');
-let fifthButton = document.querySelector('.fifth');
-let slideContainer = document.querySelector('.slide-container');
-let textContainer = document.querySelector('.textContainer');
-let currentSlideImg;
-let currentSlideText;
+// let slideContainer = document.querySelector('.slide-container');
+// let textContainer = document.querySelector('.textContainer');
 
-function findMeme(numeral) {
-  let meme = memes.find(function isFirst(memeName) {
-    return memeName.name === numeral;
-  });
-  return meme;
-}
+/**
+ * Current meme
+ * @type {number}
+ */
+let currentMeme;
 
-let slidePicture = document.querySelector('.slidePicture');
+// let slidePicture = document.querySelector('.slidePicture');
 
 
 function makeSlideImg(meme) {
@@ -54,8 +46,7 @@ function makeSlideImg(meme) {
   slideImg.src = meme.img;
 
   newSlide.appendChild(slideImg);
-  slideContainer.appendChild(newSlide);
-  
+
   return newSlide;
 }
 
@@ -68,10 +59,52 @@ function makeSlideText(meme) {
   text.textContent = meme.text;
 
   newText.appendChild(text);
-  textContainer.append(newText);
 
   return newText;
 }
+
+function makeSlideButton(memeNum) {
+  let button = document.createElement('button');
+  button.className = 'button';
+
+  button.addEventListener('click', () => {
+    setSlideCard(memes[memeNum]);
+    button.classList.add('active');
+  });
+
+  return button;
+}
+
+// TODO accept meme index instead of meme object so that we know which direction to slide
+function setSlideCard(meme) {
+  let slideContainer = document.querySelector('.slide-container');
+  let textContainer = document.querySelector('.textContainer');
+
+  const img = makeSlideImg(meme);
+  const text = makeSlideText(meme);
+
+  // TODO replace with animation with a bunch of sliders
+
+  img.animate(
+    {
+      transform: ["translateX(100%)", "translateX(0%)"],
+    }, 1000);
+
+    text.animate(
+      {
+        transform: ["translateX(100%)", "translateX(0%)"],
+      }, 1000);
+
+  slideContainer.replaceChildren(img);
+  textContainer.replaceChildren(text);
+
+  let notActive = document.querySelectorAll('button.active').forEach((element) => {
+    element.classList.remove('active');
+  });
+
+  return;
+}
+
 let secondSlideImg;
 let secondSlideText;
 let prevSlideImg;
@@ -81,109 +114,21 @@ let nextSlideImg;
 let nextSlideText;
 
 document.addEventListener('DOMContentLoaded', () => {
- 
-  firstButton.classList.add('active');
-  
-  currentSlideImg = makeSlideImg(findMeme('first'));
-  currentSlideText = makeSlideText(findMeme('first'));
+  // План
 
-  nextSlideText = makeSlideText(findMeme('second'));
-  nextSlideText.classList.add('next');
+  // шаг 1 закинуть все мемы в контейнер c классом next
+  // шаг 2 сделать чтобы кнопка первого мема подсвечивалась и первый мем было видно
+  // шаг 3 
+  let slidePicture = document.createElement('div');
+  slidePicture.className = "slidePicture";
+
+
+  let actionButtons = [];
+  for (let i = 0; i < 5; i++) {
+    actionButtons.push(makeSlideButton(i));
+  }
+  document.querySelector('.actionButtons').append(...actionButtons);
+
+  setSlideCard(memes[0]);
+  actionButtons[0].classList.add('active');
 });
-
-firstButton.addEventListener('click', firstButtonHandler);
-
-function firstButtonHandler() {
-  thirdButton.classList.remove('active');
-  secondButton.classList.remove('active');
-  firstButton.classList.add('active');
-  fourthButton.classList.remove('active');
-  fifthButton.classList.remove('active');
-
-  currentSlideText.classList.add('prev');
-  currentSlideImg.classList.add('prev');
-
-  currentSlideImg.remove();
-  currentSlideText.remove();
-
-  currentSlideImg = makeSlideImg(findMeme('first'));
-  currentSlideText = makeSlideText(findMeme('first'));
-}
-
-secondButton.addEventListener('click', secondButtonHandler);
-
-
-function secondButtonHandler() {
-
-  thirdButton.classList.remove('active');
-  secondButton.classList.add('active');
-  firstButton.classList.remove('active');
-  fifthButton.classList.remove('active');
-  fourthButton.classList.remove('active');
-
-  currentSlideText.classList.add('prev');
-  currentSlideImg.classList.add('prev');
-
-  currentSlideImg.remove();
-  currentSlideText.remove();
-
-  currentSlideImg = makeSlideImg(findMeme('second'));
-  currentSlideText = makeSlideText(findMeme('second'));
-}
-
-thirdButton.addEventListener('click', thirdButtonHandler);
-
-function thirdButtonHandler() {
-  thirdButton.classList.add('active');
-  secondButton.classList.remove('active');
-  firstButton.classList.remove('active');
-  fifthButton.classList.remove('active');
-  fourthButton.classList.remove('active');
-
-  currentSlideText.classList.add('prev');
-  currentSlideImg.classList.add('prev');
-
-  currentSlideImg.remove();
-  currentSlideText.remove();
-
-  currentSlideImg = makeSlideImg(findMeme('third'));
-  currentSlideText = makeSlideText(findMeme('third'));
-}
-
-fourthButton.addEventListener('click', fourthButtonHandler);
-
-function fourthButtonHandler() {
-  thirdButton.classList.remove('active');
-  secondButton.classList.remove('active');
-  firstButton.classList.remove('active');
-  fifthButton.classList.remove('active');
-  fourthButton.classList.add('active');
-
-  currentSlideText.classList.add('prev');
-  currentSlideImg.classList.add('prev');
-
-  currentSlideImg.remove();
-  currentSlideText.remove();
-
-  currentSlideImg = makeSlideImg(findMeme('fourth'));
-  currentSlideText = makeSlideText(findMeme('fourth'));
-}
-
-fifthButton.addEventListener('click', fifthButtonHandler);
-
-function fifthButtonHandler() {
-  thirdButton.classList.remove('active');
-  secondButton.classList.remove('active');
-  firstButton.classList.remove('active');
-  fourthButton.classList.remove('active');
-  fifthButton.classList.add('active');
-
-  currentSlideText.classList.add('prev');
-  currentSlideImg.classList.add('prev');
-
-  currentSlideImg.remove();
-  currentSlideText.remove();
-
-  currentSlideImg = makeSlideImg(findMeme('fifth'));
-  currentSlideText = makeSlideText(findMeme('fifth'));
-}
