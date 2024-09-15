@@ -43,15 +43,18 @@ function findMeme(numeral) {
   return meme;
 }
 
+let slidePicture = document.querySelector('.slidePicture');
+
+
 function makeSlideImg(meme) {
   let newSlide = document.createElement("div");
-  newSlide.className = "slidePicture";
+  newSlide.className = 'slidePicture';
 
   let slideImg = document.createElement("img");
   slideImg.src = meme.img;
 
   newSlide.appendChild(slideImg);
-  slideContainer.append(newSlide);
+  slideContainer.appendChild(newSlide);
   
   return newSlide;
 }
@@ -69,14 +72,23 @@ function makeSlideText(meme) {
 
   return newText;
 }
+let secondSlideImg;
+let secondSlideText;
+let prevSlideImg;
+let prevSlideText;
 
+let nextSlideImg;
+let nextSlideText;
 
 document.addEventListener('DOMContentLoaded', () => {
+ 
   firstButton.classList.add('active');
+  
   currentSlideImg = makeSlideImg(findMeme('first'));
   currentSlideText = makeSlideText(findMeme('first'));
 
-  // return [currentSlideText, currentSlideImg];
+  nextSlideText = makeSlideText(findMeme('second'));
+  nextSlideText.classList.add('next');
 });
 
 firstButton.addEventListener('click', firstButtonHandler);
@@ -100,13 +112,14 @@ function firstButtonHandler() {
 
 secondButton.addEventListener('click', secondButtonHandler);
 
+
 function secondButtonHandler() {
+
   thirdButton.classList.remove('active');
   secondButton.classList.add('active');
   firstButton.classList.remove('active');
   fifthButton.classList.remove('active');
   fourthButton.classList.remove('active');
-
 
   currentSlideText.classList.add('prev');
   currentSlideImg.classList.add('prev');
@@ -126,7 +139,6 @@ function thirdButtonHandler() {
   firstButton.classList.remove('active');
   fifthButton.classList.remove('active');
   fourthButton.classList.remove('active');
-
 
   currentSlideText.classList.add('prev');
   currentSlideImg.classList.add('prev');
