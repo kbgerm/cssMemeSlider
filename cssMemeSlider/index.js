@@ -26,16 +26,11 @@ const memes = [
   }
 ];
 
-// let slideContainer = document.querySelector('.slide-container');
-// let textContainer = document.querySelector('.textContainer');
-
 /**
  * Current meme
  * @type {number}
  */
 let currentMeme;
-
-// let slidePicture = document.querySelector('.slidePicture');
 
 
 function makeSlideImg(meme) {
@@ -96,10 +91,6 @@ function setSlideCard(memeNum) {
       }, 1000);
   });
 
-  // Найти старый элемент
-  // Заанимировать его нахуй со страницы
-  // Удалить в конце
-
   let prevImg = slideContainer.querySelector('img');
   let prevText = textContainer.querySelector('.slideText p');
 
@@ -140,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   currentMeme = 0;
 
   let actionButtons = [];
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < memes.length; i++) {
     actionButtons.push(makeSlideButton(i));
   }
   document.querySelector('.actionButtons').append(...actionButtons);
