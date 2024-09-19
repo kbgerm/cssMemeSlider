@@ -25,64 +25,48 @@ body {
 }
 
 a {
-  border: 0.5em solid;
+  width: 1em;
+  height: 1em;
+  border: 0.1em solid;
   border-color: #00bbff;
-  width: 2%;
-  height: 1%;
+  color: #00bbff;
   margin: 0.3em;
   border-radius: 1em;
   background-color: #00bbff;
   cursor: pointer;
+  
 }
 
-/* a:after {
-  content: '';
-  position: absolute;
-  inset: -10px;
-} */
-
 a:hover {
-  border: 0.5em solid;
+  width: 1em;
+  height: 1em;
+  border: 0.1em solid;
   border-color: white;
-  width: 2%;
-  height: 1%;
+  color: white;
   margin: 0.3em;
   border-radius: 1em;
   background-color: white;
+  cursor: pointer;
 }
 
-.active {
+a:active {
+  width: 1em;
+  height: 1em;
   border: 0.1em solid;
   border-color: #00bbff;
-  width: 1em;
-  height: 1em;
   margin: 0.3em;
   border-radius: 1em;
   background-color: transparent;
 }
 
-.active:hover {
-  border: 0.1em solid 0.1em;
+a:active:hover {
+  width: 1em;
+  height: 1em;
+  border: 0.1em solid;
   border-color: white;
-  width: 1em;
-  height: 1em;
   margin: 0.3em;
   border-radius: 1em;
   background-color: transparent;
-}
-
-.slidePicture {
-  padding-top: 2%;
-  width: 80%;
-  height: 100%;
-  border-radius: 25px;
-  transition: transform 1s linear;
-  /* margin: 0 auto; */
-  display: flex;
-  position: absolute;
-  margin-left: 10%;
-  margin-right: 10%;
-  z-index: 0;
 }
 
 .textContainer {
